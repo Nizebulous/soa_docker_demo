@@ -1,0 +1,53 @@
+consul:
+  image: progrium/consul
+  command: -server -bootstrap -advertise 192.168.59.103
+  ports:
+    - "8400:8400"
+    - "8500:8500"
+    - "8600:53/udp"
+
+registrator:
+  image: progrium/registrator
+  command: consul://192.168.59.103:8500
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+
+mysql:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+    SERVICE_NAME: db
+  ports:
+    - "3306:3306"
+  links:
+    - haproxy
+
+consultemplate:
+  image: nizebulous/consul-template
+  volumes:
+    - .:/bin/configs
+    - /var/run/docker.sock:/tmp/docker.sock
+  command:
+    /bin/consul-template -consul 192.168.59.103:8500 -config /bin/configs/consul-template.cfg -wait 5s
+
+haproxy:
+  image: dockerfile/haproxy
+  volumes:
+    - .:/haproxy-override
+  ports:
+    - "80:80"
+    - "443:443"
+    - "8000:3306"
+    - "8001:5000"
+
+todo:
+  image: nizebulous/todo
+  command:
+    python todo.py
+  volumes:
+    - .:/code/configs
+    - /Users/dhites/scratch_space/todo:/code
+  ports:
+    - "5000:5000"
+  links:
+    - haproxy

@@ -1,0 +1,5 @@
+[db]
+host={{key "service/todo/db_host"}}
+port={{key "service/todo/db_port"}}
+database={{key "service/todo/db_name"}}
+user={{key "service/todo/db_user"}}
