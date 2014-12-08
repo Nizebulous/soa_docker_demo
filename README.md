@@ -7,6 +7,7 @@ Just messing around doing service discovery with consul, registrator, consul-tem
 DEPENDENCIES:
 docker (+boot2docker, I assume that you are using boot2docker on OSX although it should be really easy to modify the setup scripts for linux): https://www.docker.com/
 fig: http://www.fig.sh/
+curl
 
 NOTE: This could easily be done without fig...but I wanted to mess around with a local dev tool for docker and it DOES simplify the interface somewhat. Options are at least statically declared in the fig.yml file which saves typing and brain space.
 
@@ -24,6 +25,8 @@ http://192.168.59.103:5000
 
 
 ADDITIONAL INFO:
+
+NOTE: At any point you can run the setup_demo.sh and it should be able to recover what it needs and launch what is not there.
 
 To Stop/Start:
 fig stop

@@ -17,6 +17,8 @@ mysql:
   environment:
     MYSQL_ROOT_PASSWORD: password
     SERVICE_NAME: db
+  volumes:
+    - .:/data
   ports:
     - "3306:3306"
   links:
@@ -46,7 +48,6 @@ todo:
     python todo.py
   volumes:
     - .:/code/configs
-    - /Users/dhites/scratch_space/todo:/code
   ports:
     - "5000:5000"
   links:

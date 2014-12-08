@@ -1,5 +1,6 @@
-CREATE DATABASE IF NOT EXISTS todo;
-USE todo;
+DROP DATABASE IF EXISTS `todo`;
+CREATE DATABASE `todo`;
+USE `todo`;
 
 # ************************************************************
 # Sequel Pro SQL dump
